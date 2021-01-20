@@ -34,12 +34,6 @@ export class DemoDeviceOrientationControls extends Demo {
     this.deps.scene.add(helper);
     this.mesh = mesh;
     this.helper = helper;
-
-    this.control.deviceOrientation = {
-      alpha: 90,
-      beta: 90,
-      gamma: 90,
-    };
   }
 
   update(): void {
@@ -47,10 +41,11 @@ export class DemoDeviceOrientationControls extends Demo {
   }
 
   dispose(): void {
-    this.control.disconnect();
-    this.control.dispose();
+    this.reset();
     this.deps.scene.remove(this.mesh);
     this.deps.scene.remove(this.helper);
+    this.control.disconnect();
+    this.control.dispose();
     this.mesh.material.dispose();
     this.helper.material.dispose();
     this.mesh = null;

@@ -23,6 +23,11 @@ export abstract class Demo {
     this.deps = deps;
   }
 
+  reset() {
+    this.deps.camera.position.set(0, 0, 0);
+    this.deps.camera.quaternion.set(0, 0, 0, 1);
+  }
+
   abstract init(): Promise<void>;
   abstract update(): void;
   abstract dispose(): void;

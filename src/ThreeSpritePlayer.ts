@@ -62,6 +62,7 @@ export class DemoThreeSpritePlayer extends Demo {
   }
 
   dispose(): void {
+    this.reset();
     this.deps.scene.remove(this.mesh)
     this.deps.scene.remove(this.box)
     this.player.dispose()

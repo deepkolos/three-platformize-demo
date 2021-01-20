@@ -73,8 +73,7 @@ export class DemoGLTFLoader extends Demo {
   }
 
   dispose(): void {
-    this.deps.camera.position.set(0, 0, 0);
-    this.deps.camera.quaternion.set(0, 0, 0, 1);
+    this.reset();
     this.orbitControl.dispose();
     this.mixer.stopAllAction();
     this.mixer.uncacheRoot(this.gltf.scene);
