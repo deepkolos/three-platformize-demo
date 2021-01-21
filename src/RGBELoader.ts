@@ -1,7 +1,6 @@
 import { Demo } from './Demo';
 import { GLTF } from 'three-platformize/examples/jsm/loaders/GLTFLoader';
 import {
-  AnimationMixer,
   DirectionalLight,
   AmbientLight,
   PMREMGenerator,
@@ -13,18 +12,19 @@ import {
 import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
 import { RGBELoader } from 'three-platformize/examples/jsm/loaders/RGBELoader';
 
+const baseUrl = 'http://www.yanhuangxueyuan.com/threejs'
+
 export class DemoRGBELoader extends Demo {
   gltf: GLTF;
-  mixer: AnimationMixer;
   directionalLight: DirectionalLight;
   ambientLight: AmbientLight;
   orbitControl: OrbitControls;
   rgbeLoader: RGBELoader;
-  spotLight: any;
+  spotLight: SpotLight;
 
   async init(): Promise<void> {
     const gltf = (await this.deps.gltfLoader.loadAsync(
-      'http://127.0.0.1:8080/examples/models/gltf/MetalRoughSpheres/glTF/MetalRoughSpheres.gltf',
+      baseUrl + '/examples/models/gltf/MetalRoughSpheres/glTF/MetalRoughSpheres.gltf',
     )) as GLTF;
     this.gltf = gltf;
 
@@ -38,7 +38,7 @@ export class DemoRGBELoader extends Demo {
     const envTexture = (await this.rgbeLoader
       .setDataType(UnsignedByteType)
       .loadAsync(
-        'http://127.0.0.1:8080/examples/textures/equirectangular/venice_sunset_1k.hdr',
+        baseUrl + '/examples/textures/equirectangular/venice_sunset_2k.hdr',
       )) as Texture;
     const envMap = pmremGenerator.fromEquirectangular(envTexture).texture;
     envTexture.dispose();
@@ -90,7 +90,6 @@ export class DemoRGBELoader extends Demo {
   }
 
   update(): void {
-    this.mixer?.update(this.deps.clock.getDelta());
     this.orbitControl?.update();
   }
 
@@ -100,8 +99,6 @@ export class DemoRGBELoader extends Demo {
     (this.deps.scene.background as Texture).dispose();
     this.deps.scene.background = undefined;
     this.orbitControl.dispose();
-    this.mixer.stopAllAction();
-    this.mixer.uncacheRoot(this.gltf.scene);
     this.deps.scene.remove(this.gltf.scene);
     this.deps.scene.remove(this.directionalLight);
     this.deps.scene.remove(this.ambientLight);
@@ -110,7 +107,6 @@ export class DemoRGBELoader extends Demo {
     this.ambientLight = null;
     this.orbitControl = null;
     this.spotLight = null;
-    this.mixer = null;
     this.deps = null;
   }
 }
