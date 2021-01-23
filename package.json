@@ -16,7 +16,7 @@
   "author": "DeepKolos<deepkolos@qq.com>",
   "license": "ISC",
   "dependencies": {
-    "three-platformize": "file:..\\three-platformize",
+    "three-platformize": "^1.0.4",
     "three-sprite-player": "^1.0.4"
   }
 }
