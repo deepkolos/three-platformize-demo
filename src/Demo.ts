@@ -7,6 +7,8 @@ import {
 } from 'three-platformize';
 import { GLTFLoader } from 'three-platformize/examples/jsm/loaders/GLTFLoader';
 
+export const baseUrl = 'http://www.yanhuangxueyuan.com/threejs/examples'
+
 export interface DemoDeps {
   clock: Clock;
   scene: Scene;
