@@ -1,4 +1,5 @@
 export * from './Demo';
+export * from './MeshOpt';
 export * from './OBJLoader';
 export * from './SVGLoader';
 export * from './RGBELoader';

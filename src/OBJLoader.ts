@@ -57,6 +57,7 @@ export class DemoOBJLoader extends Demo {
     this.deps.scene.remove(this.ambientLight);
     this.deps.camera.remove(this.pointLight);
     this.deps.scene.remove(this.object);
+    this.deps.scene.remove(this.deps.camera);
     this.object.traverse(function (child) {
       // @ts-ignore
       if (child.isMesh) {
