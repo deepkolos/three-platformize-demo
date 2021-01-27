@@ -9,27 +9,27 @@ export class DemoMeshOpt extends Demo {
   ambientLight: AmbientLight;
   orbitControl: OrbitControls;
   pointLight: PointLight;
+  lastBackground: Color | import("D:/DEV/opensource/three-platformize/src/Three").Texture | import("D:/DEV/opensource/three-platformize/src/Three").WebGLCubeRenderTarget;
 
   async init(): Promise<void> {
     this.deps.gltfLoader.setMeshoptDecoder(MeshoptDecoder);
 
-    const gltf = (await this.deps.gltfLoader.loadAsync(
+    this.gltf = (await this.deps.gltfLoader.loadAsync(
       'https://meshoptimizer.org/demo/pirate.glb',
     )) as GLTF;
 
-    this.gltf = gltf;
     this.ambientLight = new AmbientLight(0xcccccc, 0.3);
     this.pointLight = new PointLight(0xffffff, 0.8);
     this.pointLight.position.set(3, 3, 0);
 
-    this.deps.scene.add(gltf.scene);
+    this.deps.scene.add(this.gltf.scene);
     this.deps.scene.add(this.ambientLight);
-    this.deps.camera.add(this.pointLight);
     this.deps.scene.add(this.deps.camera);
-    gltf.scene.position.y = -1
+    this.deps.camera.add(this.pointLight);
+    this.gltf.scene.position.y = -1
+    this.deps.scene.position.z = 0;
     this.deps.camera.position.y = 1.0;
     this.deps.camera.position.z = 3.0;
-    this.deps.scene.position.z = 0;
     this.deps.scene.background = new Color(0x300a24);
 
     // init controls
@@ -47,12 +47,12 @@ export class DemoMeshOpt extends Demo {
 
   dispose(): void {
     this.reset();
+    this.deps.scene.background = null;
     this.orbitControl.dispose();
-    this.deps.scene.add(this.deps.camera);
+    this.deps.scene.remove(this.deps.camera);
     this.deps.scene.remove(this.gltf.scene);
     this.deps.scene.remove(this.ambientLight);
     this.deps.camera.remove(this.pointLight);
-    this.deps.scene.background = null;
     this.pointLight = null;
     this.ambientLight = null;
     this.orbitControl = null;

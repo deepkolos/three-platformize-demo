@@ -7,7 +7,7 @@ import {
 } from 'three-platformize';
 import { GLTFLoader } from 'three-platformize/examples/jsm/loaders/GLTFLoader';
 
-export const baseUrl = 'http://www.yanhuangxueyuan.com/threejs/examples'
+export const baseUrl = 'http://www.yanhuangxueyuan.com/threejs/examples';
 
 export interface DemoDeps {
   clock: Clock;
@@ -28,6 +28,7 @@ export abstract class Demo {
   reset() {
     this.deps.camera.position.set(0, 0, 0);
     this.deps.camera.quaternion.set(0, 0, 0, 1);
+    this.deps.scene.position.z = -3;
   }
 
   abstract init(): Promise<void>;
