@@ -1,8 +1,8 @@
-import { baseUrl, Demo } from './Demo';
+import { Demo } from './Demo';
 import { GLTF } from 'three-platformize/examples/jsm/loaders/GLTFLoader';
-import { AmbientLight, Box3, BoxHelper, Color, PointLight } from 'three-platformize';
+import { AmbientLight, Color, PointLight } from 'three-platformize';
 import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
-import { MeshoptDecoder } from 'three-platformize/extensions/meshopt_decoder.module';
+import { MeshoptDecoder } from 'three-platformize/examples/jsm/libs/meshopt_decoder.module';
 
 export class DemoMeshOpt extends Demo {
   gltf: GLTF;
