@@ -1,4 +1,4 @@
-import { Demo } from './Demo';
+import { baseUrl, Demo } from './Demo';
 import { GLTF } from 'three-platformize/examples/jsm/loaders/GLTFLoader';
 import {
   AnimationMixer,
@@ -18,7 +18,7 @@ export class DemoGLTFLoader extends Demo {
 
   async init(): Promise<void> {
     const gltf = (await this.deps.gltfLoader.loadAsync(
-      'https://dtmall-tel.alicdn.com/edgeComputingConfig/upload_models/1591673169101/RobotExpressive.glb',
+      baseUrl + '/models/gltf/RobotExpressive/RobotExpressive.glb'
     )) as GLTF;
     gltf.scene.position.z = 2.5;
     gltf.scene.position.y = -2;

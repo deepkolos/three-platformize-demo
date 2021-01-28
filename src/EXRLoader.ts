@@ -9,7 +9,6 @@ import {
   ToneMapping,
 } from 'three-platformize';
 import { EXRLoader } from 'three-platformize/examples/jsm/loaders/EXRLoader';
-import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
 
 export class DemoEXRLoader extends Demo {
   loader: EXRLoader;
