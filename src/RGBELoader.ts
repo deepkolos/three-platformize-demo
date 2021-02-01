@@ -12,7 +12,7 @@ import {
 import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
 import { RGBELoader } from 'three-platformize/examples/jsm/loaders/RGBELoader';
 
-const baseUrl = 'http://www.yanhuangxueyuan.com/threejs'
+const baseUrl = 'http://www.yanhuangxueyuan.com/threejs';
 
 export class DemoRGBELoader extends Demo {
   gltf: GLTF;
@@ -24,7 +24,8 @@ export class DemoRGBELoader extends Demo {
 
   async init(): Promise<void> {
     const gltf = (await this.deps.gltfLoader.loadAsync(
-      baseUrl + '/examples/models/gltf/MetalRoughSpheres/glTF/MetalRoughSpheres.gltf',
+      baseUrl +
+        '/examples/models/gltf/MetalRoughSpheres/glTF/MetalRoughSpheres.gltf',
     )) as GLTF;
     this.gltf = gltf;
 
@@ -35,12 +36,15 @@ export class DemoRGBELoader extends Demo {
     this.rgbeLoader = new RGBELoader();
     const pmremGenerator = new PMREMGenerator(this.deps.renderer);
     pmremGenerator.compileEquirectangularShader();
+    const t0 = Date.now()
     const envTexture = (await this.rgbeLoader
       .setDataType(UnsignedByteType)
       .loadAsync(
         baseUrl + '/examples/textures/equirectangular/venice_sunset_2k.hdr',
       )) as Texture;
+    const t = Date.now();
     const envMap = pmremGenerator.fromEquirectangular(envTexture).texture;
+    console.log('time cost', Date.now() - t, t - t0);
     envTexture.dispose();
     pmremGenerator.dispose();
     this.deps.scene.background = envMap;

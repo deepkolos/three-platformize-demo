@@ -7,4 +7,5 @@ export * from './RGBELoader';
 export * from './GLTFLoader';
 export * from './Raycaster';
 export * from './ThreeSpritePlayer';
+export * from './HDRPrefilterTexture';
 export * from './DeviceOrientationControls';
