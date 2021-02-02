@@ -28,7 +28,7 @@ export class DemoMTLLoader extends Demo {
     this.objLoader = new OBJLoader(this.loadMgr);
 
     const materials = (await this.mtlLoader.loadAsync(
-      baseUrl + '/models/obj/male02/male02_dds.mtl',
+      baseUrl + '/models/obj/male02/male02.mtl',
     )) as MTLLoader.MaterialCreator;
     materials.preload();
 
