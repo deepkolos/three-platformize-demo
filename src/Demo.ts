@@ -21,14 +21,14 @@ export interface DemoDeps {
 
 export abstract class Demo {
   deps: DemoDeps;
-  objects = [];
+  _objects = [];
 
   constructor(deps: DemoDeps) {
     this.deps = deps;
   }
 
   add(obj: Object3D) {
-    this.objects.push(obj);
+    this._objects.push(obj);
     this.deps.scene.add(obj);
   }
 
@@ -39,11 +39,11 @@ export abstract class Demo {
     scene.background = null;
     scene.fog = null;
     scene.position.z = -3;
-    this.objects.forEach(object => {
+    this._objects.forEach(object => {
       object.material?.dispose();
     });
-    scene.remove(...this.objects);
-    this.objects.length = 0;
+    scene.remove(...this._objects);
+    this._objects.length = 0;
   }
 
   abstract init(): Promise<void>;
