@@ -78,9 +78,13 @@ export class DemoFBXLoader extends Demo {
     this.mixer = mixer;
   }
   update(): void {
-    this.mixer.update(this.deps.clock.getDelta());
+    this.mixer?.update(this.deps.clock.getDelta());
   }
   dispose(): void {
     this.reset();
+    this.mixer.stopAllAction();
+    this.mixer = null;
+    this.controls.dispose();
+    this.controls = null;
   }
 }

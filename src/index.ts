@@ -1,5 +1,6 @@
 export * from './Demo';
 export * from './MeshOpt';
+export * from './BVHLoader';
 export * from './FBXLoader';
 export * from './LWOLoader';
 export * from './MTLLoader';
