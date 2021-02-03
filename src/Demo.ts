@@ -4,6 +4,7 @@ import {
   Scene,
   TextureLoader,
   PerspectiveCamera,
+  Object3D,
 } from 'three-platformize';
 import { GLTFLoader } from 'three-platformize/examples/jsm/loaders/GLTFLoader';
 
@@ -20,15 +21,29 @@ export interface DemoDeps {
 
 export abstract class Demo {
   deps: DemoDeps;
+  objects = [];
 
   constructor(deps: DemoDeps) {
     this.deps = deps;
   }
 
+  add(obj: Object3D) {
+    this.objects.push(obj);
+    this.deps.scene.add(obj);
+  }
+
   reset() {
-    this.deps.camera.position.set(0, 0, 0);
-    this.deps.camera.quaternion.set(0, 0, 0, 1);
-    this.deps.scene.position.z = -3;
+    const { camera, scene } = this.deps;
+    camera.position.set(0, 0, 0);
+    camera.quaternion.set(0, 0, 0, 1);
+    scene.background = null;
+    scene.fog = null;
+    scene.position.z = -3;
+    this.objects.forEach(object => {
+      object.material?.dispose();
+    });
+    scene.remove(...this.objects);
+    this.objects.length = 0;
   }
 
   abstract init(): Promise<void>;
