@@ -9,35 +9,27 @@ import {
   SpotLight,
   Euler,
 } from 'three-platformize';
-import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
 import { RGBELoader } from 'three-platformize/examples/jsm/loaders/RGBELoader';
 
 const baseUrl = 'http://www.yanhuangxueyuan.com/threejs';
 
 export class DemoRGBELoader extends Demo {
-  gltf: GLTF;
-  directionalLight: DirectionalLight;
-  ambientLight: AmbientLight;
-  orbitControl: OrbitControls;
-  rgbeLoader: RGBELoader;
-  spotLight: SpotLight;
-
   async init(): Promise<void> {
-    const gltf = (await this.deps.gltfLoader.loadAsync(
+    const { renderer, gltfLoader, scene, camera } = this.deps;
+    const gltf = (await gltfLoader.loadAsync(
       baseUrl +
         '/examples/models/gltf/MetalRoughSpheres/glTF/MetalRoughSpheres.gltf',
     )) as GLTF;
-    this.gltf = gltf;
 
     gltf.scene.rotation.copy(new Euler(0, 0, 0));
-    this.deps.renderer.physicallyCorrectLights = true;
+    renderer.physicallyCorrectLights = true;
 
     // env map
-    this.rgbeLoader = new RGBELoader();
-    const pmremGenerator = new PMREMGenerator(this.deps.renderer);
+    const rgbeLoader = new RGBELoader();
+    const pmremGenerator = new PMREMGenerator(renderer);
     pmremGenerator.compileEquirectangularShader();
-    const t0 = Date.now()
-    const envTexture = (await this.rgbeLoader
+    const t0 = Date.now();
+    const envTexture = (await rgbeLoader
       .setDataType(UnsignedByteType)
       .loadAsync(
         baseUrl + '/examples/textures/equirectangular/venice_sunset_2k.hdr',
@@ -45,9 +37,10 @@ export class DemoRGBELoader extends Demo {
     const t = Date.now();
     const envMap = pmremGenerator.fromEquirectangular(envTexture).texture;
     console.log('time cost', Date.now() - t, t - t0);
+
     envTexture.dispose();
     pmremGenerator.dispose();
-    this.deps.scene.background = envMap;
+    scene.background = envMap;
 
     // prettier-ignore
     gltf.scene.traverse( function ( node ) {
@@ -65,32 +58,23 @@ export class DemoRGBELoader extends Demo {
     } );
 
     // lights
-    this.directionalLight = new DirectionalLight(0xdddddd, 4);
-    this.directionalLight.position.set(0, 0, 1).normalize();
+    const directionalLight = new DirectionalLight(0xdddddd, 4);
+    directionalLight.position.set(0, 0, 1).normalize();
 
-    this.ambientLight = new AmbientLight(0x222222);
+    const spotLight = new SpotLight(0xffffff, 1);
+    spotLight.position.set(5, 10, 5);
+    spotLight.angle = 0.5;
+    spotLight.penumbra = 0.75;
+    spotLight.intensity = 100;
+    spotLight.decay = 2;
 
-    this.spotLight = new SpotLight(0xffffff, 1);
-    this.spotLight.position.set(5, 10, 5);
-    this.spotLight.angle = 0.5;
-    this.spotLight.penumbra = 0.75;
-    this.spotLight.intensity = 100;
-    this.spotLight.decay = 2;
+    camera.position.set(2, 1, 15);
 
-    this.deps.scene.add(gltf.scene);
-    this.deps.scene.add(this.directionalLight);
-    this.deps.scene.add(this.ambientLight);
-    this.deps.scene.add(this.spotLight);
-
-    this.deps.camera.position.set(2, 1, 15);
-
-    // init controls
-    this.orbitControl = new OrbitControls(
-      this.deps.camera,
-      this.deps.renderer.domElement,
-    );
-    this.orbitControl.enableDamping = true;
-    this.orbitControl.dampingFactor = 0.05;
+    this.add(gltf.scene);
+    this.add(directionalLight);
+    this.add(new AmbientLight(0x222222));
+    this.add(spotLight);
+    this.addControl();
   }
 
   update(): void {
@@ -99,18 +83,5 @@ export class DemoRGBELoader extends Demo {
 
   dispose(): void {
     this.reset();
-    this.deps.renderer.physicallyCorrectLights = false;
-    (this.deps.scene.background as Texture).dispose();
-    this.deps.scene.background = undefined;
-    this.orbitControl.dispose();
-    this.deps.scene.remove(this.gltf.scene);
-    this.deps.scene.remove(this.directionalLight);
-    this.deps.scene.remove(this.ambientLight);
-    this.deps.scene.remove(this.spotLight);
-    this.directionalLight = null;
-    this.ambientLight = null;
-    this.orbitControl = null;
-    this.spotLight = null;
-    this.deps = null;
   }
 }

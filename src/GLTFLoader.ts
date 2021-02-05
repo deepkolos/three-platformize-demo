@@ -7,14 +7,9 @@ import {
   DirectionalLight,
   AmbientLight,
 } from 'three-platformize';
-import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
 
 export class DemoGLTFLoader extends Demo {
-  gltf: GLTF;
   mixer: AnimationMixer;
-  directionalLight: DirectionalLight;
-  ambientLight: AmbientLight;
-  orbitControl: OrbitControls;
 
   async init(): Promise<void> {
     const gltf = (await this.deps.gltfLoader.loadAsync(
@@ -23,13 +18,9 @@ export class DemoGLTFLoader extends Demo {
     gltf.scene.position.z = 2.5;
     gltf.scene.position.y = -2;
 
-    this.gltf = gltf;
-    this.directionalLight = new DirectionalLight(0xffffff, 1);
-    this.ambientLight = new AmbientLight(0xffffff, 1);
-
-    this.deps.scene.add(gltf.scene);
-    this.deps.scene.add(this.directionalLight);
-    this.deps.scene.add(this.ambientLight);
+    this.add(new DirectionalLight(0xffffff, 1));
+    this.add(new AmbientLight(0xffffff, 1));
+    this.add(gltf.scene);
     this.deps.camera.position.z = 10;
 
     // init animtion
@@ -58,13 +49,7 @@ export class DemoGLTFLoader extends Demo {
     const activeAction = actions['Walking'];
     activeAction.play();
 
-    // init controls
-    this.orbitControl = new OrbitControls(
-      this.deps.camera,
-      this.deps.renderer.domElement,
-    );
-    this.orbitControl.enableDamping = true;
-    this.orbitControl.dampingFactor = 0.05;
+    this.addControl();
   }
 
   update(): void {
@@ -73,17 +58,8 @@ export class DemoGLTFLoader extends Demo {
   }
 
   dispose(): void {
-    this.reset();
-    this.orbitControl.dispose();
     this.mixer.stopAllAction();
-    this.mixer.uncacheRoot(this.gltf.scene);
-    this.deps.scene.remove(this.gltf.scene);
-    this.deps.scene.remove(this.directionalLight);
-    this.deps.scene.remove(this.ambientLight);
-    this.directionalLight = null;
-    this.ambientLight = null;
-    this.orbitControl = null;
     this.mixer = null;
-    this.deps = null;
+    this.reset();
   }
 }

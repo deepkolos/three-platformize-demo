@@ -1,6 +1,5 @@
-import { DirectionalLight, AmbientLight } from 'three-platformize';
-import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
 import { Demo } from './Demo';
+import { DirectionalLight, AmbientLight } from 'three-platformize';
 import { MeshoptDecoder } from 'three-platformize/examples/jsm/libs/meshopt_decoder.module';
 
 /**
@@ -11,9 +10,9 @@ import { MeshoptDecoder } from 'three-platformize/examples/jsm/libs/meshopt_deco
  * 转换工具：gltfpack -i PrimaryIonDrive.glb -o PrimaryIonDrive-EXT_MESH_QUANTIZATION.glb
  *           gltfpack -i PrimaryIonDrive.glb -o PrimaryIonDrive-EXT_meshopt_compression.glb -cc
  *           gltf-pipeline -i PrimaryIonDrive.glb -o PrimaryIonDrive-Draco.glb
- * 
+ *
  * 测试方式：点击菜单的重新进入小程序，加载glb记录时间，重复3次
- * 
+ *
  *            大小      小米8加载(ms)     IPhone7(ms)
  * orginal    5.53 MB   357 | 284 | 242   584 | 239 | 574
  * mesh_quan  1.39 MB   332 | 301 | 306   261 | 343 | 345
@@ -22,9 +21,8 @@ import { MeshoptDecoder } from 'three-platformize/examples/jsm/libs/meshopt_deco
  * ```
  */
 export class DemoMeshQuantization extends Demo {
-  orbitControl: OrbitControls;
   async init(): Promise<void> {
-    const { camera, gltfLoader } = this.deps;
+    const { camera, gltfLoader, scene } = this.deps;
     const t = Date.now();
     gltfLoader.setMeshoptDecoder(MeshoptDecoder);
     const gltf = await gltfLoader.loadAsync(
@@ -44,22 +42,14 @@ export class DemoMeshQuantization extends Demo {
     this.add(new AmbientLight(0xffffff, 1));
 
     camera.position.z = 3;
-    this.deps.scene.position.z = 0;
+    scene.position.z = 0;
 
-    // init controls
-    this.orbitControl = new OrbitControls(
-      this.deps.camera,
-      this.deps.renderer.domElement,
-    );
-    this.orbitControl.enableDamping = true;
-    this.orbitControl.dampingFactor = 0.05;
+    this.addControl();
   }
   update(): void {
     this.orbitControl?.update();
   }
   dispose(): void {
     this.reset();
-    this.orbitControl.dispose();
-    this.orbitControl = null;
   }
 }

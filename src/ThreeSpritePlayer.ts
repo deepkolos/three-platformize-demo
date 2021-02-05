@@ -1,10 +1,15 @@
-import { Demo } from "./Demo";
-import { PlaneGeometry, MeshBasicMaterial, Mesh, BoxGeometry } from 'three-platformize'
-import ThreeSpritePlayer from "three-sprite-player";
+import { Demo } from './Demo';
+import {
+  PlaneGeometry,
+  MeshBasicMaterial,
+  Mesh,
+  BoxGeometry,
+} from 'three-platformize';
+import ThreeSpritePlayer from 'three-sprite-player';
 
-const url: Array<string> = (new Array<string>(3))
+const url: Array<string> = new Array<string>(3)
   .fill('')
-  .map((v: string, k: number) => `/imgs/output-${k}.png`)
+  .map((v: string, k: number) => `/imgs/output-${k}.png`);
 
 const tile = {
   url,
@@ -20,12 +25,14 @@ const tile = {
 };
 
 export class DemoThreeSpritePlayer extends Demo {
-  mesh: Mesh<PlaneGeometry, MeshBasicMaterial>;
   player: ThreeSpritePlayer;
-  box: Mesh<BoxGeometry, MeshBasicMaterial>;
+  mesh: Mesh;
 
   async init(): Promise<void> {
-    const tiles = await Promise.all(tile.url.map(url => this.deps.textureLoader.loadAsync(url)))
+    const { textureLoader } = this.deps;
+    const tiles = await Promise.all(
+      tile.url.map(url => textureLoader.loadAsync(url)),
+    );
     const spritePlayer = new ThreeSpritePlayer(
       tiles,
       tile.total,
@@ -48,32 +55,23 @@ export class DemoThreeSpritePlayer extends Demo {
     mesh.position.z = -8;
     mesh.position.y = 4;
 
-    this.deps.scene.add(mesh);
-    this.deps.scene.add(box);
+    this.add(mesh);
+    this.add(box);
 
-    this.box = box
-    this.mesh = mesh
-    this.player = spritePlayer
+    this.mesh = mesh;
+    this.player = spritePlayer;
   }
 
   update(): void {
-    this.player.animate()
-    this.mesh.material.map = this.player.texture
+    this.player.animate();
+    // @ts-ignore
+    this.mesh.material.map = this.player.texture;
   }
 
   dispose(): void {
     this.reset();
-    this.deps.scene.remove(this.mesh)
-    this.deps.scene.remove(this.box)
-    this.player.dispose()
-    this.box.geometry.dispose()
-    this.mesh.geometry.dispose()
-    this.mesh.material.dispose()
-    this.mesh.geometry = null
-    this.mesh.material = null
-    this.box = null
-    this.mesh = null
-    this.player = null
-    this.deps = null
+    this.player.dispose();
+    this.player = null;
+    this.mesh = null;
   }
 }

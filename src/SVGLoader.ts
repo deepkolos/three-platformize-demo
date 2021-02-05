@@ -8,9 +8,7 @@ import {
   Mesh,
   GridHelper,
   LinearEncoding,
-  sRGBEncoding,
 } from 'three-platformize';
-import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
 import {
   SVGLoader,
   SVGResult,
@@ -19,35 +17,23 @@ import {
 const baseUrl = 'http://www.yanhuangxueyuan.com/threejs';
 
 export class DemoSVGLoader extends Demo {
-  orbitControl: OrbitControls;
-  svgLoader: SVGLoader;
-  svgGroup: Group;
-  helper: GridHelper;
-
   async init(): Promise<void> {
-    this.svgLoader = new SVGLoader();
-    const svg = (await this.svgLoader.loadAsync(
+    const { camera, renderer } = this.deps;
+    const svgLoader = new SVGLoader();
+    const svg = (await svgLoader.loadAsync(
       baseUrl + '/examples/models/svg/tiger.svg',
       // 'http://192.168.0.103:8080/test.svg'
     )) as SVGResult;
-    this.svgGroup = this.initSVG(svg);
 
-    this.helper = new GridHelper(160, 10);
-    this.helper.rotation.x = Math.PI / 2;
+    const helper = new GridHelper(160, 10);
+    helper.rotation.x = Math.PI / 2;
 
-    this.deps.scene.add(this.helper);
-    this.deps.scene.add(this.svgGroup);
-    this.deps.camera.position.set(0, 0, 200);
+    this.add(helper);
+    this.add(this.initSVG(svg));
+    this.addControl();
 
-    // init controls
-    this.orbitControl = new OrbitControls(
-      this.deps.camera,
-      this.deps.renderer.domElement,
-    );
-    this.orbitControl.enableDamping = true;
-    this.orbitControl.dampingFactor = 0.05;
-
-    this.deps.renderer.outputEncoding = LinearEncoding;
+    camera.position.set(0, 0, 200);
+    renderer.outputEncoding = LinearEncoding;
   }
 
   initSVG(svg: SVGResult) {
@@ -136,13 +122,5 @@ export class DemoSVGLoader extends Demo {
 
   dispose(): void {
     this.reset();
-    this.deps.renderer.outputEncoding = sRGBEncoding;
-    this.orbitControl.dispose();
-    this.deps.scene.remove(this.helper);
-    this.deps.scene.remove(this.svgGroup);
-    this.orbitControl = null;
-    this.svgGroup = null;
-    this.helper = null;
-    this.deps = null;
   }
 }

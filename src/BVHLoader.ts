@@ -7,13 +7,11 @@ import {
   Group,
   SkeletonHelper,
 } from 'three-platformize';
-import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
 
 export class DemoBVHLoader extends Demo {
   mixer: AnimationMixer;
-  controls: OrbitControls;
   async init(): Promise<void> {
-    const { scene, renderer, camera } = this.deps;
+    const { scene, camera } = this.deps;
     const loader = new BVHLoader();
 
     camera.position.set(0, 200, 300);
@@ -38,20 +36,17 @@ export class DemoBVHLoader extends Demo {
     this.mixer = new AnimationMixer(skeletonHelper);
     this.mixer.clipAction(result.clip).setEffectiveWeight(1.0).play();
 
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.minDistance = 300;
-    controls.maxDistance = 700;
-
-    this.controls = controls;
+    this.addControl();
+    this.orbitControl.minDistance = 300;
+    this.orbitControl.maxDistance = 700;
   }
   update(): void {
     this.mixer?.update(this.deps.clock.getDelta());
+    this.orbitControl?.update();
   }
   dispose(): void {
     this.reset();
     this.mixer.stopAllAction();
-    this.controls.dispose();
     this.mixer = null;
-    this.controls = null;
   }
 }

@@ -13,7 +13,6 @@ import {
 import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
 
 export class DemoLWOLoader extends Demo {
-  loader: LWOLoader;
   objects: Object3D[];
   controls: OrbitControls;
 
@@ -23,7 +22,7 @@ export class DemoLWOLoader extends Demo {
     scene.background = new Color(0xa0a0a0);
 
     const ambientLight = new AmbientLight(0xaaaaaa, 1.75);
-    scene.add(ambientLight);
+    this.add(ambientLight);
 
     const light1 = new DirectionalLight(0xffffff, 1);
     light1.position.set(0, 200, 100);
@@ -32,29 +31,29 @@ export class DemoLWOLoader extends Demo {
     light1.shadow.camera.bottom = -100;
     light1.shadow.camera.left = -120;
     light1.shadow.camera.right = 120;
-    scene.add(light1);
+    this.add(light1);
 
     const light2 = new DirectionalLight(0xffffff, 0.7);
     light2.position.set(-100, 200, -100);
-    scene.add(light2);
+    this.add(light2);
 
     const light3 = new DirectionalLight(0xffffff, 0.4);
     light3.position.set(100, -200, 100);
-    scene.add(light3);
+    this.add(light3);
 
     const light4 = new DirectionalLight(0xffffff, 1);
     light4.position.set(-100, -100, 100);
-    scene.add(light4);
+    this.add(light4);
 
     const grid = new GridHelper(200, 20, 0x000000, 0x000000);
     // @ts-ignore
     grid.material.opacity = 0.3;
     // @ts-ignore
     grid.material.transparent = true;
-    scene.add(grid);
+    this.add(grid);
 
-    this.loader = new LWOLoader();
-    const object = (await this.loader.loadAsync(
+    const loader = new LWOLoader();
+    const object = (await loader.loadAsync(
       baseUrl + '/models/lwo/Objects/LWO3/Demo.lwo',
     )) as LWO;
 
@@ -67,31 +66,21 @@ export class DemoLWOLoader extends Demo {
     const rocket = object.meshes[2];
     rocket.position.set(0, 10.5, -1);
 
-    scene.add(phong, standard, rocket);
-
-    this.objects = [light1, light2, light3, grid, phong, standard, rocket];
+    this.add(phong);
+    this.add(rocket);
+    this.add(standard);
 
     renderer.shadowMap.enabled = true;
     renderer.physicallyCorrectLights = true;
     renderer.gammaFactor = 1.18;
 
-    this.controls = new OrbitControls(camera, renderer.domElement);
-    this.controls.target.set(1.33, 10, -6.7);
-    this.controls.update();
+    this.addControl();
+    this.orbitControl.target.set(1.33, 10, -6.7);
   }
-  update(): void {}
+  update(): void {
+    this.orbitControl?.update();
+  }
   dispose(): void {
-    const { renderer, scene } = this.deps;
-    renderer.shadowMap.enabled = false;
-    renderer.physicallyCorrectLights = false;
-    renderer.gammaFactor = 1.18;
-
     this.reset();
-    scene.background = null;
-    this.controls.dispose();
-    scene.remove(...this.objects);
-    this.objects.length = 0;
-    this.loader = null;
-    this.controls = null;
   }
 }

@@ -10,14 +10,12 @@ import {
   PlaneBufferGeometry,
 } from 'three-platformize';
 import { FBXLoader } from 'three-platformize/examples/jsm/loaders/FBXLoader';
-import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
 import { baseUrl, Demo } from './Demo';
 
 export class DemoFBXLoader extends Demo {
   mixer: AnimationMixer;
-  controls: OrbitControls;
   async init(): Promise<void> {
-    const { renderer, camera, scene } = this.deps;
+    const { camera, scene } = this.deps;
     camera.position.set(100, 200, 300);
     scene.background = new Color(0xa0a0a0);
     scene.fog = new Fog(0xa0a0a0, 200, 1000);
@@ -70,21 +68,19 @@ export class DemoFBXLoader extends Demo {
 
     this.add(object);
 
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(0, 100, 0);
-    controls.update();
+    this.addControl();
+    this.orbitControl.target.set(0, 100, 0);
+    this.orbitControl.update();
 
-    this.controls = controls;
     this.mixer = mixer;
   }
   update(): void {
     this.mixer?.update(this.deps.clock.getDelta());
+    this.orbitControl?.update();
   }
   dispose(): void {
     this.reset();
     this.mixer.stopAllAction();
     this.mixer = null;
-    this.controls.dispose();
-    this.controls = null;
   }
 }
