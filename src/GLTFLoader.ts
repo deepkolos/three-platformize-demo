@@ -18,7 +18,7 @@ export class DemoGLTFLoader extends Demo {
 
   async init(): Promise<void> {
     const gltf = (await this.deps.gltfLoader.loadAsync(
-      baseUrl + '/models/gltf/RobotExpressive/RobotExpressive.glb'
+      baseUrl + '/models/gltf/RobotExpressive/RobotExpressive.glb',
     )) as GLTF;
     gltf.scene.position.z = 2.5;
     gltf.scene.position.y = -2;

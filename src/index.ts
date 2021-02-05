@@ -1,5 +1,7 @@
 export * from './Demo';
+
 export * from './MeshOpt';
+export * from './MeshQuantization';
 
 export * from './BVHLoader';
 export * from './FBXLoader';
