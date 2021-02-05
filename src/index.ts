@@ -3,6 +3,7 @@ export * from './Demo';
 export * from './MeshOpt';
 export * from './MeshQuantization';
 
+export * from './TTFLoader';
 export * from './BVHLoader';
 export * from './FBXLoader';
 export * from './LWOLoader';
