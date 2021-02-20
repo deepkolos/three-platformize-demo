@@ -1,3 +1,48 @@
+## [1.0.4](https://github.com/deepkolos/three-platformize-demo/compare/v1.0.3...v1.0.4) (2021-02-04)
+
+
+### Bug Fixes
+
+* Demo error ([f836249](https://github.com/deepkolos/three-platformize-demo/commit/f8362492232d0a281074b0136ad03186353519d4))
+* DemoMTLLoader use jpg texture ([5ade69d](https://github.com/deepkolos/three-platformize-demo/commit/5ade69ddc02a48abc53f419bff089711a742bcce))
+
+
+### Features
+
+* add DemoColladaLoader ([2ce8f83](https://github.com/deepkolos/three-platformize-demo/commit/2ce8f8327b540cbbd4dcc13d9902334c32566cfb))
+* add DemoFBXLoader ([0e26626](https://github.com/deepkolos/three-platformize-demo/commit/0e266268b3d375753822829cce50d9f5d0bd1aa0))
+* add DemoLWOLoader ([2556d21](https://github.com/deepkolos/three-platformize-demo/commit/2556d2105de3dd832548eea91946861691f1d946))
+* DemoBVHLoader ([ac3d876](https://github.com/deepkolos/three-platformize-demo/commit/ac3d876e599de03e49cfdb1ed22f6193b153120d))
+
+
+
+## [1.0.3](https://github.com/deepkolos/three-platformize-demo/compare/v1.0.2...v1.0.3) (2021-02-01)
+
+
+### Features
+
+* add DemoMTLLoader ([d76e59c](https://github.com/deepkolos/three-platformize-demo/commit/d76e59c2c118ef3dad8c1ac434c3dc38cf97a33d))
+
+
+
+## [1.0.2](https://github.com/deepkolos/three-platformize-demo/compare/v1.0.1...v1.0.2) (2021-02-01)
+
+
+### Bug Fixes
+
+* change meshopt lib's location ([75b55e5](https://github.com/deepkolos/three-platformize-demo/commit/75b55e50950b57d74d2b6896a6510300784e0149))
+* update DemoGLTFLoader model url ([c03fa09](https://github.com/deepkolos/three-platformize-demo/commit/c03fa09f10a5694af7ce8283faf688743870947c))
+
+
+### Features
+
+* add DemoEXRLoader ([515a2a3](https://github.com/deepkolos/three-platformize-demo/commit/515a2a3b2cc9117cb7656b95a19b6465ab03e741))
+* add DemoHDRPrefilterTexture ([d64fa2d](https://github.com/deepkolos/three-platformize-demo/commit/d64fa2d97cf2c79e051af15d55d9e2da1fe16d28))
+* add DemoMeshOpt ([f9bace6](https://github.com/deepkolos/three-platformize-demo/commit/f9bace680d8a6e13500c4a2ec37fd47c2e21bcea))
+* add DemoOBJLoader & changelog ([7634257](https://github.com/deepkolos/three-platformize-demo/commit/7634257323bda4e820ef695f3057b3bf523a71b5))
+
+
+
 ## [1.0.1](https://github.com/deepkolos/three-platformize-demo/compare/96f3ceecb209d50090db836daf9eab0c2d7b2108...v1.0.1) (2021-01-23)
 
 
