@@ -1,13 +1,13 @@
-import { Demo } from './Demo';
+import { baseUrl, Demo } from './Demo';
 import { STLLoader } from 'three-platformize/examples/jsm/loaders/STLLoader';
 import {
   AmbientLight,
-  AxesHelper,
-  LinearEncoding,
+  Color,
+  DirectionalLight,
+  Fog,
   Mesh,
-  MeshBasicMaterial,
-  MeshLambertMaterial,
-  PointLight,
+  MeshPhongMaterial,
+  PlaneGeometry,
   Vector3,
 } from 'three-platformize';
 
@@ -15,54 +15,113 @@ export class DemoSTLLoader extends Demo {
   async init(): Promise<void> {
     const { camera, renderer, scene } = this.deps;
 
-    this.addControl();
-    const loader = new STLLoader();
-
-    camera.position.set(0, 40, 40);
-    camera.lookAt(new Vector3(0, 0, 0));
+    camera.position.set(3, 0.15, 3);
     renderer.setClearColor(0xffffff);
-    renderer.outputEncoding = LinearEncoding;
     scene.position.z = 0;
+    scene.background = new Color(0x72645b);
+    scene.fog = new Fog(0x72645b, 2, 15);
+    renderer.shadowMap.enabled = true;
 
-    const [lungGeometry, innerGeometry] = await Promise.all([
-      loader.loadAsync('http://127.0.0.1:8080/lung.stl'),
-      loader.loadAsync('http://127.0.0.1:8080/yanzheng.stl'),
-    ]);
+    const plane = new Mesh(new PlaneGeometry(40, 40), new MeshPhongMaterial({ color: 0x999999, specular: 0x101010 }));
+    plane.rotation.x = -Math.PI / 2;
+    plane.position.y = -0.5;
+    plane.receiveShadow = true;
 
-    const lungMaterial = new MeshBasicMaterial({
-      color: 0x2232cd,
-      transparent: true,
-      opacity: 0.8,
-    });
-    const lungMesh = new Mesh(lungGeometry, lungMaterial);
-
-    lungMesh.rotation.x = -0.5 * Math.PI; //将模型摆正
-    lungMesh.scale.set(0.1, 0.1, 0.1); //缩放
-    lungGeometry.center(); //居中显示
-
-    const mesh = new Mesh(
-      innerGeometry,
-      new MeshLambertMaterial({ color: 0xff0000 }),
-    );
-    mesh.rotation.x = -0.5 * Math.PI; //将模型摆正
-    mesh.scale.set(0.1, 0.1, 0.1); //缩放
-    innerGeometry.center(); //居中显示
-
-    this.add(mesh);
-    this.add(lungMesh);
+    this.add(plane);
     this.add(new AmbientLight(0x444444));
-    this.add(new AxesHelper(50));
+    this.addShadowedLight(1, 1, 1, 0xffffff, 1.35);
+    this.addShadowedLight(0.5, 1, -1, 0xffaa00, 1);
+    this.addControl();
+    this.loadModels();
+  }
 
-    const pointLight = new PointLight(0xffffff);
-    pointLight.position.set(0, 50, 50);
-    pointLight.castShadow = true;
+  addShadowedLight(x, y, z, color, intensity) {
+    const directionalLight = new DirectionalLight(color, intensity);
+    directionalLight.position.set(x, y, z);
+    this.add(directionalLight);
 
-    this.add(pointLight);
+    directionalLight.castShadow = true;
 
-    //告诉平行光需要开启阴影投射
+    const d = 1;
+    directionalLight.shadow.camera.left = -d;
+    directionalLight.shadow.camera.right = d;
+    directionalLight.shadow.camera.top = d;
+    directionalLight.shadow.camera.bottom = -d;
+
+    directionalLight.shadow.camera.near = 1;
+    directionalLight.shadow.camera.far = 4;
+
+    directionalLight.shadow.bias = -0.002;
+  }
+
+  loadModels() {
+    const loader = new STLLoader();
+    loader.load(baseUrl + '/models/stl/ascii/slotted_disk.stl', geometry => {
+      const material = new MeshPhongMaterial({ color: 0xff5533, specular: 0x111111, shininess: 200 });
+      const mesh = new Mesh(geometry, material);
+
+      mesh.position.set(0, -0.25, 0.6);
+      mesh.rotation.set(0, -Math.PI / 2, 0);
+      mesh.scale.set(0.5, 0.5, 0.5);
+
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+
+      this.add(mesh);
+    });
+
+    // Binary files
+    const material = new MeshPhongMaterial({ color: 0xaaaaaa, specular: 0x111111, shininess: 200 });
+
+    loader.load(baseUrl + '/models/stl/binary/pr2_head_pan.stl', geometry => {
+      const mesh = new Mesh(geometry, material);
+
+      mesh.position.set(0, -0.37, -0.6);
+      mesh.rotation.set(-Math.PI / 2, 0, 0);
+      mesh.scale.set(2, 2, 2);
+
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+
+      this.add(mesh);
+    });
+
+    loader.load('./models/stl/binary/pr2_head_tilt.stl', geometry => {
+      const mesh = new Mesh(geometry, material);
+
+      mesh.position.set(0.136, -0.37, -0.6);
+      mesh.rotation.set(-Math.PI / 2, 0.3, 0);
+      mesh.scale.set(2, 2, 2);
+
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+
+      this.add(mesh);
+    });
+
+    // Colored binary STL
+    loader.load(baseUrl + '/models/stl/binary/colored.stl', geometry => {
+      let meshMaterial = material;
+      // @ts-ignore
+      if (geometry.hasColors) {
+        meshMaterial = new MeshPhongMaterial({ opacity: geometry.alpha, vertexColors: true });
+      }
+
+      const mesh = new Mesh(geometry, meshMaterial);
+
+      mesh.position.set(0.5, 0.2, 0);
+      mesh.rotation.set(-Math.PI / 2, Math.PI / 2, 0);
+      mesh.scale.set(0.3, 0.3, 0.3);
+
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+
+      this.add(mesh);
+    });
   }
   update(): void {
     this.orbitControl?.update();
+    this.deps.camera.lookAt(new Vector3(0, -0.25, 0));
   }
   dispose(): void {
     this.reset();
