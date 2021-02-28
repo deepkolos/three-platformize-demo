@@ -1,19 +1,14 @@
 import { baseUrl, Demo } from './Demo';
 import { GLTF } from 'three-platformize/examples/jsm/loaders/GLTFLoader';
-import {
-  AnimationMixer,
-  AnimationAction,
-  LoopOnce,
-  DirectionalLight,
-  AmbientLight,
-} from 'three-platformize';
+import { AnimationMixer, AnimationAction, LoopOnce, DirectionalLight, AmbientLight } from 'three-platformize';
 
 export class DemoGLTFLoader extends Demo {
   mixer: AnimationMixer;
 
   async init(): Promise<void> {
     const gltf = (await this.deps.gltfLoader.loadAsync(
-      baseUrl + '/models/gltf/RobotExpressive/RobotExpressive.glb',
+      // baseUrl + '/models/gltf/RobotExpressive/RobotExpressive.glb',
+      'https://dtmall-tel.alicdn.com/edgeComputingConfig/upload_models/1591673169101/RobotExpressive.glb',
     )) as GLTF;
     gltf.scene.position.z = 2.5;
     gltf.scene.position.y = -2;
@@ -24,15 +19,7 @@ export class DemoGLTFLoader extends Demo {
     this.deps.camera.position.z = 10;
 
     // init animtion
-    const states = [
-      'Idle',
-      'Walking',
-      'Running',
-      'Dance',
-      'Death',
-      'Sitting',
-      'Standing',
-    ];
+    const states = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing'];
     const emotes = ['Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp'];
     this.mixer = new AnimationMixer(gltf.scene);
     const actions: { [k: string]: AnimationAction } = {};

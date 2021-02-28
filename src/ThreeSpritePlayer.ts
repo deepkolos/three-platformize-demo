@@ -1,15 +1,14 @@
 import { Demo } from './Demo';
-import {
-  PlaneGeometry,
-  MeshBasicMaterial,
-  Mesh,
-  BoxGeometry,
-} from 'three-platformize';
+import { PlaneGeometry, MeshBasicMaterial, Mesh, BoxGeometry } from 'three-platformize';
 import ThreeSpritePlayer from 'three-sprite-player';
 
-const url: Array<string> = new Array<string>(3)
-  .fill('')
-  .map((v: string, k: number) => `/imgs/output-${k}.png`);
+// const url: Array<string> = new Array<string>(3).fill('').map((v: string, k: number) => `/imgs/output-${k}.png`);
+
+const url = [
+  'https://s3.ax1x.com/2021/02/26/yx0ObV.png',
+  'https://s3.ax1x.com/2021/02/26/yx0LD0.png',
+  'https://s3.ax1x.com/2021/02/26/yx0Hvn.png',
+];
 
 const tile = {
   url,
@@ -30,17 +29,8 @@ export class DemoThreeSpritePlayer extends Demo {
 
   async init(): Promise<void> {
     const { textureLoader } = this.deps;
-    const tiles = await Promise.all(
-      tile.url.map(url => textureLoader.loadAsync(url)),
-    );
-    const spritePlayer = new ThreeSpritePlayer(
-      tiles,
-      tile.total,
-      tile.row,
-      tile.col,
-      tile.fps,
-      true,
-    );
+    const tiles = await Promise.all(tile.url.map(url => textureLoader.loadAsync(url)));
+    const spritePlayer = new ThreeSpritePlayer(tiles, tile.total, tile.row, tile.col, tile.fps, true);
 
     const geometry = new PlaneGeometry(tile.w, tile.h);
     const material = new MeshBasicMaterial({

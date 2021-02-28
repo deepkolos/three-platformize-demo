@@ -1,11 +1,6 @@
 import { Demo } from './Demo';
 import { DeviceOrientationControls } from 'three-platformize/examples/jsm/controls/DeviceOrientationControls';
-import {
-  SphereBufferGeometry,
-  MeshBasicMaterial,
-  Mesh,
-  BoxBufferGeometry,
-} from 'three-platformize';
+import { SphereBufferGeometry, MeshBasicMaterial, Mesh, BoxBufferGeometry } from 'three-platformize';
 
 export class DemoDeviceOrientationControls extends Demo {
   control: DeviceOrientationControls;
@@ -17,8 +12,7 @@ export class DemoDeviceOrientationControls extends Demo {
     const geometry = new SphereBufferGeometry(500, 60, 40);
     geometry.scale(-1, 1, 1);
     const material = new MeshBasicMaterial({
-      map: await textureLoader.loadAsync('/imgs/360.jpg'),
-      // color: 0x123456
+      map: await textureLoader.loadAsync('https://s3.ax1x.com/2021/02/26/yx0quq.jpg'),
     });
 
     const helperGeometry = new BoxBufferGeometry(100, 100, 100, 4, 4, 4);
