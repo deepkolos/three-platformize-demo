@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0"
   },
   "keywords": [
@@ -19,5 +20,8 @@
   "dependencies": {
     "three-platformize": "^1.0.4",
     "three-sprite-player": "^1.0.4"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.3"
   }
 }

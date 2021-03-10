@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "watch": true,
+    "outDir": "dist",
+    "moduleResolution": "node"
+  },
+  "include": ["src/**/*.ts"]
+}
