@@ -1,5 +1,6 @@
 import { sRGBEncoding, } from 'three-platformize';
 import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
+import { disposeHierarchy } from 'three-platformize/tools/dispose-three';
 export const baseUrl = 'http://www.yanhuangxueyuan.com/threejs/examples';
 export class Demo {
     constructor(deps) {
@@ -21,7 +22,7 @@ export class Demo {
         this.orbitControl.enableDamping = true;
         this.orbitControl.dampingFactor = 0.05;
     }
-    reset() {
+    reset(all = true) {
         var _a, _b, _c;
         const { camera, scene, renderer } = this.deps;
         camera.position.set(0, 0, 0);
@@ -33,6 +34,7 @@ export class Demo {
         renderer.shadowMap.enabled = false;
         renderer.physicallyCorrectLights = false;
         renderer.outputEncoding = sRGBEncoding;
+        disposeHierarchy(this.deps.scene);
         this._objects.forEach(object => { var _a, _b; return (_b = (_a = object.material) === null || _a === void 0 ? void 0 : _a.dispose) === null || _b === void 0 ? void 0 : _b.call(_a); });
         this._cameraObjects.forEach(object => { var _a, _b; return (_b = (_a = object.material) === null || _a === void 0 ? void 0 : _a.dispose) === null || _b === void 0 ? void 0 : _b.call(_a); });
         scene.remove(...this._objects);
@@ -40,7 +42,9 @@ export class Demo {
         this._objects.length = 0;
         this._cameraObjects.length = 0;
         (_c = this.orbitControl) === null || _c === void 0 ? void 0 : _c.dispose();
-        this.orbitControl = null;
-        this.deps = null;
+        if (all) {
+            this.orbitControl = null;
+            this.deps = null;
+        }
     }
 }

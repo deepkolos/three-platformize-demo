@@ -10,6 +10,7 @@ import {
 } from 'three-platformize';
 import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three-platformize/examples/jsm/loaders/GLTFLoader';
+import { disposeHierarchy } from 'three-platformize/tools/dispose-three'
 
 export const baseUrl = 'http://www.yanhuangxueyuan.com/threejs/examples';
 // export const baseUrl = 'https://threejs.org/examples';
@@ -50,7 +51,7 @@ export abstract class Demo {
     this.orbitControl.dampingFactor = 0.05;
   }
 
-  reset() {
+  reset(all = true) {
     const { camera, scene, renderer } = this.deps;
     camera.position.set(0, 0, 0);
     camera.quaternion.set(0, 0, 0, 1);
@@ -62,6 +63,7 @@ export abstract class Demo {
     renderer.physicallyCorrectLights = false;
     renderer.outputEncoding = sRGBEncoding;
 
+    disposeHierarchy(this.deps.scene);
     this._objects.forEach(object => object.material?.dispose?.());
     this._cameraObjects.forEach(object => object.material?.dispose?.());
     scene.remove(...this._objects);
@@ -70,8 +72,11 @@ export abstract class Demo {
     this._cameraObjects.length = 0;
 
     this.orbitControl?.dispose();
-    this.orbitControl = null;
-    this.deps = null;
+
+    if (all) {
+      this.orbitControl = null;
+      this.deps = null;
+    }
   }
 
   abstract init(): Promise<void>;

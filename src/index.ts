@@ -1,4 +1,5 @@
 export * from './Demo';
+export * from './MemoryTest';
 
 export * from './MeshOpt';
 export * from './MeshQuantization';

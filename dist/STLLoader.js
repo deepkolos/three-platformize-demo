@@ -83,6 +83,7 @@ export class DemoSTLLoader extends Demo {
             let meshMaterial = material;
             // @ts-ignore
             if (geometry.hasColors) {
+                // @ts-ignore
                 meshMaterial = new MeshPhongMaterial({ opacity: geometry.alpha, vertexColors: true });
             }
             const mesh = new Mesh(geometry, meshMaterial);
