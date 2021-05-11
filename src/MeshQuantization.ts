@@ -1,6 +1,6 @@
 import { Demo } from './Demo';
 import { DirectionalLight, AmbientLight } from 'three-platformize';
-import { MeshoptDecoder } from 'three-platformize/examples/jsm/libs/meshopt_decoder.module';
+import { MeshoptDecoder } from 'three-platformize/tools/meshopt_decoder.wasm.module';
 
 /**
  * ```
@@ -20,6 +20,9 @@ import { MeshoptDecoder } from 'three-platformize/examples/jsm/libs/meshopt_deco
  * Draco      1.58 MB   未适配Draco       未适配Draco
  * ```
  */
+
+ MeshoptDecoder.setWasmPath('/decoder_base.wasm');
+
 export class DemoMeshQuantization extends Demo {
   async init(): Promise<void> {
     const { camera, gltfLoader, scene } = this.deps;

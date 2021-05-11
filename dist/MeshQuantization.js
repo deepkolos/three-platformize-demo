@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { Demo } from './Demo';
 import { DirectionalLight, AmbientLight } from 'three-platformize';
-import { MeshoptDecoder } from 'three-platformize/examples/jsm/libs/meshopt_decoder.module';
+import { MeshoptDecoder } from 'three-platformize/tools/meshopt_decoder.wasm.module';
 /**
  * ```
  * 模型地址： three.js\examples\models\gltf\PrimaryIonDrive.glb
@@ -28,6 +28,7 @@ import { MeshoptDecoder } from 'three-platformize/examples/jsm/libs/meshopt_deco
  * Draco      1.58 MB   未适配Draco       未适配Draco
  * ```
  */
+MeshoptDecoder.setWasmPath('/decoder_base.wasm');
 export class DemoMeshQuantization extends Demo {
     init() {
         return __awaiter(this, void 0, void 0, function* () {
