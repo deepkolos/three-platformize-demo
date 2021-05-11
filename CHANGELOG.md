@@ -1,9 +1,28 @@
-## [1.0.5](https://github.com/deepkolos/three-platformize-demo/compare/v1.0.4...v1.0.5) (2021-02-20)
+## [1.0.8](https://github.com/deepkolos/three-platformize-demo/compare/v1.0.7...v1.0.8) (2021-05-11)
+
+
+### Features
+
+* add memory test ([47a8cb9](https://github.com/deepkolos/three-platformize-demo/commit/47a8cb93c03d83d594c49374c3f1defee52df44a))
+
+
+
+## [1.0.7](https://github.com/deepkolos/three-platformize-demo/compare/v1.0.6...v1.0.7) (2021-02-28)
+
+
+### Features
+
+* DemoTGALoader ([acf291d](https://github.com/deepkolos/three-platformize-demo/commit/acf291de3ec52e78133d3c88ff23b28f37e6ae1d))
+
+
+
+## [1.0.6](https://github.com/deepkolos/three-platformize-demo/compare/v1.0.4...v1.0.6) (2021-02-21)
 
 
 ### Features
 
 * add DemoMeshQuantization & test report ([fa839a0](https://github.com/deepkolos/three-platformize-demo/commit/fa839a0ea97b9b1d2ac8e5b5e64603514640969c))
+* add DemoPDBLoader & update DemoSTLLoader ([f53014d](https://github.com/deepkolos/three-platformize-demo/commit/f53014d3a16f104799da002182949a70cbd5c1d4))
 * add DemoSTLLoader ([3904bc6](https://github.com/deepkolos/three-platformize-demo/commit/3904bc648d9b5def31ec6ee03c935ec4f9552bdc))
 * add DemoTTFLoader ([2168294](https://github.com/deepkolos/three-platformize-demo/commit/21682945e20a3445b9bb9c8621a4dcdae7febe27))
 * add MeshoptDecoder asm test ([1088d2e](https://github.com/deepkolos/three-platformize-demo/commit/1088d2e2ad9c3ed0e0076452b62cfdd79f4250a5))
