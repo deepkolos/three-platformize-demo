@@ -16,7 +16,7 @@ export class DemoHDRPrefilterTexture extends Demo {
             const { scene, camera } = this.deps;
             const texture = yield this.deps.textureLoader.loadAsync(
             // 'https://s3.ax1x.com/2021/02/01/yeci9I.png',
-            'https://i.loli.net/2021/02/01/FAf8VEDdSNHBQLG.png');
+            'https://cdn.static.oppenlab.com/weblf/test/hdr-prefilter.png');
             toEnvMap(texture);
             const geometry = new PlaneGeometry(3, 3);
             const material = new MeshBasicMaterial({ map: texture });

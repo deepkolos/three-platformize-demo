@@ -7,6 +7,7 @@ import {
   Object3D,
   sRGBEncoding,
   Texture,
+  Color,
 } from 'three-platformize';
 import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three-platformize/examples/jsm/loaders/GLTFLoader';
@@ -56,7 +57,7 @@ export abstract class Demo {
     camera.position.set(0, 0, 0);
     camera.quaternion.set(0, 0, 0, 1);
     (scene.background as Texture)?.dispose?.();
-    scene.background = null;
+    scene.background = new Color(0xffffff);
     scene.fog = null;
     scene.position.z = -3;
     renderer.shadowMap.enabled = false;

@@ -1,4 +1,4 @@
-import { sRGBEncoding, } from 'three-platformize';
+import { sRGBEncoding, Color, } from 'three-platformize';
 import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
 import { disposeHierarchy } from 'three-platformize/tools/dispose-three';
 export const baseUrl = 'https://techbrood.com/threejs/examples/';
@@ -28,7 +28,7 @@ export class Demo {
         camera.position.set(0, 0, 0);
         camera.quaternion.set(0, 0, 0, 1);
         (_b = (_a = scene.background) === null || _a === void 0 ? void 0 : _a.dispose) === null || _b === void 0 ? void 0 : _b.call(_a);
-        scene.background = null;
+        scene.background = new Color(0xffffff);
         scene.fog = null;
         scene.position.z = -3;
         renderer.shadowMap.enabled = false;
