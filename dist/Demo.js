@@ -1,7 +1,7 @@
 import { sRGBEncoding, } from 'three-platformize';
 import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitControls';
 import { disposeHierarchy } from 'three-platformize/tools/dispose-three';
-export const baseUrl = 'http://www.yanhuangxueyuan.com/threejs/examples';
+export const baseUrl = 'https://techbrood.com/threejs/examples/';
 export class Demo {
     constructor(deps) {
         this._objects = [];

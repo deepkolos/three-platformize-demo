@@ -12,7 +12,7 @@ import { OrbitControls } from 'three-platformize/examples/jsm/controls/OrbitCont
 import { GLTFLoader } from 'three-platformize/examples/jsm/loaders/GLTFLoader';
 import { disposeHierarchy } from 'three-platformize/tools/dispose-three'
 
-export const baseUrl = 'http://www.yanhuangxueyuan.com/threejs/examples';
+export const baseUrl = 'https://techbrood.com/threejs/examples/';
 // export const baseUrl = 'https://threejs.org/examples';
 
 export interface DemoDeps {
