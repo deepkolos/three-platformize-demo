@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { Demo } from './Demo';
 import { DirectionalLight, AmbientLight, PMREMGenerator, UnsignedByteType, SpotLight, Euler, } from 'three-platformize';
 import { RGBELoader } from 'three-platformize/examples/jsm/loaders/RGBELoader';
-const baseUrl = 'http://www.yanhuangxueyuan.com/threejs';
+const baseUrl = 'https://techbrood.com/threejs';
 export class DemoRGBELoader extends Demo {
     init() {
         return __awaiter(this, void 0, void 0, function* () {

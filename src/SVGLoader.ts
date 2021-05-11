@@ -14,7 +14,7 @@ import {
   SVGResult,
 } from 'three-platformize/examples/jsm/loaders/SVGLoader';
 
-const baseUrl = 'http://www.yanhuangxueyuan.com/threejs';
+const baseUrl = 'https://techbrood.com/threejs';
 
 export class DemoSVGLoader extends Demo {
   async init(): Promise<void> {

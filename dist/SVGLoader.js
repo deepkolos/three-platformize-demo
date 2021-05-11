@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { Demo } from './Demo';
 import { Group, MeshBasicMaterial, Color, DoubleSide, ShapeBufferGeometry, Mesh, GridHelper, LinearEncoding, } from 'three-platformize';
 import { SVGLoader, } from 'three-platformize/examples/jsm/loaders/SVGLoader';
-const baseUrl = 'http://www.yanhuangxueyuan.com/threejs';
+const baseUrl = 'https://techbrood.com/threejs';
 export class DemoSVGLoader extends Demo {
     init() {
         return __awaiter(this, void 0, void 0, function* () {

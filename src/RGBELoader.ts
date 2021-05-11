@@ -11,7 +11,7 @@ import {
 } from 'three-platformize';
 import { RGBELoader } from 'three-platformize/examples/jsm/loaders/RGBELoader';
 
-const baseUrl = 'http://www.yanhuangxueyuan.com/threejs';
+const baseUrl = 'https://techbrood.com/threejs';
 
 export class DemoRGBELoader extends Demo {
   async init(): Promise<void> {
