@@ -18,7 +18,7 @@
   "author": "DeepKolos<deepkolos@qq.com>",
   "license": "ISC",
   "dependencies": {
-    "three-platformize": "^1.0.21",
+    "three-platformize": "^1.129.0",
     "three-sprite-player": "^1.0.4"
   },
   "devDependencies": {
