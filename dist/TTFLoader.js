@@ -9,7 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { baseUrl, Demo } from './Demo';
 import { TTFLoader } from 'three-platformize/examples/jsm/loaders/TTFLoader';
-import { Color, Fog, DirectionalLight, PointLight, MeshPhongMaterial, Group, Font, TextBufferGeometry, Mesh, MeshBasicMaterial, PlaneBufferGeometry, LinearEncoding, } from 'three-platformize';
+import { Color, Fog, DirectionalLight, PointLight, MeshPhongMaterial, Group, Mesh, MeshBasicMaterial, PlaneBufferGeometry, LinearEncoding, } from 'three-platformize';
+import { TextGeometry } from 'three-platformize/examples/jsm/geometries/TextGeometry';
+import { Font } from 'three-platformize/examples/jsm/loaders/FontLoader';
 const text = 'three.js';
 const height = 20, size = 70, hover = 30, curveSegments = 4, bevelThickness = 2, bevelSize = 1.5;
 const mirror = true;
@@ -54,7 +56,7 @@ export class DemoTTFLoader extends Demo {
         });
     }
     createText(font, group, material) {
-        const textGeo = new TextBufferGeometry(text, {
+        const textGeo = new TextGeometry(text, {
             font: font,
             size: size,
             height: height,

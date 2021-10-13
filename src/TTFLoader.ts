@@ -7,13 +7,13 @@ import {
   PointLight,
   MeshPhongMaterial,
   Group,
-  Font,
-  TextBufferGeometry,
   Mesh,
   MeshBasicMaterial,
   PlaneBufferGeometry,
   LinearEncoding,
 } from 'three-platformize';
+import { TextGeometry } from 'three-platformize/examples/jsm/geometries/TextGeometry';
+import { Font } from 'three-platformize/examples/jsm/loaders/FontLoader';
 
 const text = 'three.js';
 const height = 20,
@@ -76,7 +76,7 @@ export class DemoTTFLoader extends Demo {
   }
 
   createText(font, group, material) {
-    const textGeo = new TextBufferGeometry(text, {
+    const textGeo = new TextGeometry(text, {
       font: font,
 
       size: size,

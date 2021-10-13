@@ -23,11 +23,11 @@ import { MeshoptDecoder } from 'three-platformize/tools/meshopt_decoder.wasm.mod
  * IPhone7
  *  wasm 22  22  22   (WXWebAssembly API)
  */
-MeshoptDecoder.setWasmPath('/decoder_base.wasm');
 export class DemoMeshOpt extends Demo {
     init() {
         return __awaiter(this, void 0, void 0, function* () {
             const { gltfLoader, camera, scene } = this.deps;
+            MeshoptDecoder.setWasmPath('/decoder_base.wasm');
             gltfLoader.setMeshoptDecoder(MeshoptDecoder);
             const t = Date.now();
             const gltf = (yield gltfLoader.loadAsync(

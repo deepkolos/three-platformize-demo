@@ -28,12 +28,12 @@ import { MeshoptDecoder } from 'three-platformize/tools/meshopt_decoder.wasm.mod
  * Draco      1.58 MB   未适配Draco       未适配Draco
  * ```
  */
-MeshoptDecoder.setWasmPath('/decoder_base.wasm');
 export class DemoMeshQuantization extends Demo {
     init() {
         return __awaiter(this, void 0, void 0, function* () {
             const { camera, gltfLoader, scene } = this.deps;
             const t = Date.now();
+            MeshoptDecoder.setWasmPath('/decoder_base.wasm');
             gltfLoader.setMeshoptDecoder(MeshoptDecoder);
             const gltf = yield gltfLoader.loadAsync(
             // 'https://cdn.static.oppenlab.com/weblf/test/PrimaryIonDrive.glb',
