@@ -18,6 +18,7 @@ export * from './SVGLoader';
 export * from './RGBELoader';
 export * from './GLTFLoader';
 export * from './ColladaLoader';
+export * from './VTKLoader';
 
 export * from './Raycaster';
 export * from './ThreeSpritePlayer';
