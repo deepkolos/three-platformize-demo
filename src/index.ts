@@ -20,6 +20,7 @@ export * from './GLTFLoader';
 export * from './ColladaLoader';
 export * from './VTKLoader';
 
+export * from './VSMShadow';
 export * from './Raycaster';
 export * from './ThreeSpritePlayer';
 export * from './HDRPrefilterTexture';
